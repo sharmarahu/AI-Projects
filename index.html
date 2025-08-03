@@ -146,19 +146,20 @@
   <div class="chat-container">
     <div class="chat-header">
       <h2>💬 Devops & SRE Guide</h2>
-      <button onclick="toggleDarkMode()">🌓</button>
+      <button onclick="toggleDarkMode()" aria-label="Toggle dark mode">🌓</button>
     </div>
     <div class="chat-box" id="chat-box">
       <div class="message bot">Hi! I'm your AI Powered Guide. Ask me anything.</div>
     </div>
     <div class="input-box">
-      <input type="text" id="user-input" placeholder="Type a message..." onkeydown="handleKey(event)" />
+      <input type="text" id="user-input" placeholder="Type a message..." autocomplete="off" onkeydown="handleKey(event)" autofocus />
       <button class="send" onclick="sendMessage()">Send</button>
     </div>
   </div>
 
   <script>
     const chatBox = document.getElementById('chat-box');
+    const input = document.getElementById("user-input");
 
     function handleKey(e) {
       if (e.key === 'Enter') {
@@ -171,12 +172,12 @@
     }
 
     function sendMessage() {
-      const input = document.getElementById("user-input");
       const message = input.value.trim();
       if (message === "") return;
 
       appendMessage("user", message);
       input.value = "";
+      input.focus();
 
       // Bot "typing"
       const typing = document.createElement("div");
@@ -210,6 +211,9 @@
       if (input.includes("bye")) return "Talk to you later!";
       return "Hmm... I'm not smart enough to answer that. Try something else!";
     }
+
+    // Autofocus input on page load
+    window.onload = () => input.focus();
   </script>
 </body>
 </html>
